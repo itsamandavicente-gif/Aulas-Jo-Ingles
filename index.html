@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Missões — Aulas Jô Inglês</title>
+<meta name="description" content="Acompanhamento das aulas do curso, com progresso por etapa, status, prioridade e observações.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">Painel de Missões</div>
+    <h1>Acompanhamento de Aulas</h1>
+    <div class="subtitle">17 missões · Consolidação de Base &amp; Metodologia de Aquisição Acelerada</div>
+  </header>
+
+  <div class="overview">
+    <div class="overview-top">
+      <div>
+        <div class="readout-label">Progresso geral</div>
+        <div class="big-readout">
+          <span class="num" id="ov-pct">0%</span>
+          <span class="of" id="ov-frac">0 / 17 concluídas</span>
+        </div>
+      </div>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="n pending" id="stat-pending">17</div><div class="l">Pendente</div></div>
+        <div class="mini-stat"><div class="n progress" id="stat-progress">0</div><div class="l">Andamento</div></div>
+        <div class="mini-stat"><div class="n done" id="stat-done">0</div><div class="l">Concluído</div></div>
+      </div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-seg done" id="ov-bar-done" style="width:0%"></div>
+      <div class="bar-seg progress" id="ov-bar-progress" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="stages" id="stage-cards"></div>
+
+  <div class="filters">
+    <div class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" placeholder="Buscar missão…" />
+    </div>
+    <div class="chip-group" id="status-filters"></div>
+    <div class="chip-group" id="priority-filters"></div>
+  </div>
+
+  <div id="mission-groups"></div>
+
+  <details class="howto">
+    <summary>Como usar este painel</summary>
+    <ol>
+      <li>Clique no quadrado à esquerda de cada missão para alternar o status: pendente → em andamento → concluído.</li>
+      <li>Use o menu de status para pular direto para o estado desejado.</li>
+      <li>O ícone de nota abre um campo para anotar dúvidas, revisão ou próximos passos.</li>
+      <li>Os filtros e a busca ajudam a encontrar rapidamente o que falta.</li>
+      <li>O progresso geral e por etapa é calculado automaticamente.</li>
+      <li>Tudo é salvo neste navegador — reabra esta página para continuar de onde parou.</li>
+    </ol>
+  </details>
+
+  <div class="footnote">Painel salvo automaticamente neste navegador</div>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
