@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import NavLinks from "./nav-links";
 
 export const metadata: Metadata = {
-  title: "Painel de Missões — Aulas Jô Inglês",
+  title: "English w/ Jo",
   description: "Acompanhamento de aulas e vocabulário com repetição espaçada.",
 };
 

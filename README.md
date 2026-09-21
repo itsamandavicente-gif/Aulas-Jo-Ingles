@@ -1,4 +1,4 @@
-# Painel de Missões — Aulas Jô Inglês
+# English w/ Jo
 
 App em Next.js + Supabase para acompanhar aulas (liberadas por nível) e revisar vocabulário com repetição espaçada (algoritmo SM-2, o mesmo do Anki/Memrise).
 

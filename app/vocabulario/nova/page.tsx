@@ -3,7 +3,7 @@ import NovaPalavraForm from "../nova-palavra-form";
 
 export default async function NovaPalavraPage() {
   const supabase = createClient();
-  const { data } = await supabase.from("lessons").select("id, titulo, nivel").order("nivel");
+  const { data } = await supabase.from("english_jo_lessons").select("id, titulo, nivel").order("nivel");
 
   return (
     <div className="wrap">

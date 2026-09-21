@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function atualizarStatusLicao(lessonId: string, status: string) {
   const supabase = createClient();
-  await supabase.from("lessons").update({ status }).eq("id", lessonId);
+  await supabase.from("english_jo_lessons").update({ status }).eq("id", lessonId);
   revalidatePath("/");
   revalidatePath("/aulas");
 }
@@ -15,7 +15,7 @@ export async function atualizarLicao(formData: FormData) {
   const prioridade = String(formData.get("prioridade"));
   const nota = String(formData.get("nota") || "");
   const supabase = createClient();
-  await supabase.from("lessons").update({ prioridade, nota }).eq("id", id);
+  await supabase.from("english_jo_lessons").update({ prioridade, nota }).eq("id", id);
   revalidatePath("/");
   revalidatePath("/aulas");
 }
@@ -30,7 +30,7 @@ export async function criarLicao(formData: FormData) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const { error } = await supabase
-    .from("lessons")
+    .from("english_jo_lessons")
     .insert({ nivel, titulo, pasta, prioridade, created_by: user?.id });
 
   if (error) return { erro: error.message };

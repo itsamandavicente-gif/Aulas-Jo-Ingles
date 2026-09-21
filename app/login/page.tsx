@@ -21,7 +21,7 @@ export default function LoginPage() {
   return (
     <div className="auth-wrap">
       <div className="card auth-card">
-        <div className="eyebrow">Painel de Missões</div>
+        <div className="eyebrow">English w/ Jo</div>
         <h1 style={{ fontSize: 28 }}>Entrar</h1>
         <p className="subtitle" style={{ marginBottom: 18 }}>
           Digite seu e-mail e enviaremos um link de acesso — sem senha.

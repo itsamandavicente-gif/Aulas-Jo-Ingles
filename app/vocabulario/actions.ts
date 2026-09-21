@@ -15,7 +15,7 @@ export async function criarPalavra(formData: FormData) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const { error } = await supabase
-    .from("words")
+    .from("english_jo_words")
     .insert({ termo, traducao, exemplo, lesson_id: lessonId, added_by: user?.id });
 
   if (error) return { erro: error.message };
@@ -30,7 +30,7 @@ export async function responderRevisao(wordId: string, quality: 0 | 3 | 4 | 5) {
   if (!user) return;
 
   const { data: atual } = await supabase
-    .from("reviews")
+    .from("english_jo_reviews")
     .select("repeticoes, intervalo, fator_facilidade")
     .eq("word_id", wordId)
     .eq("user_id", user.id)
@@ -39,7 +39,7 @@ export async function responderRevisao(wordId: string, quality: 0 | 3 | 4 | 5) {
   const estado = atual ?? { repeticoes: 0, intervalo: 0, fator_facilidade: 2.5 };
   const resultado = revisarCartao(estado, quality);
 
-  await supabase.from("reviews").upsert(
+  await supabase.from("english_jo_reviews").upsert(
     {
       word_id: wordId,
       user_id: user.id,

@@ -13,7 +13,7 @@ type Lesson = {
 export default async function Dashboard() {
   const supabase = createClient();
   const { data } = await supabase
-    .from("lessons")
+    .from("english_jo_lessons")
     .select("id, nivel, pasta, titulo, prioridade, status")
     .order("nivel", { ascending: true })
     .order("created_at", { ascending: true });
@@ -30,7 +30,7 @@ export default async function Dashboard() {
   return (
     <div className="wrap">
       <header style={{ marginBottom: 22 }}>
-        <div className="eyebrow">Painel de Missões</div>
+        <div className="eyebrow">English w/ Jo</div>
         <h1>Acompanhamento de Aulas</h1>
         <div className="subtitle">Conteúdo liberado por nível, conforme o avanço</div>
       </header>

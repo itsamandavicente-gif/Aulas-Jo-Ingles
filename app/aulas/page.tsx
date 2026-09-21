@@ -5,7 +5,7 @@ import EditarLicaoForm from "./editar-licao-form";
 export default async function AulasPage() {
   const supabase = createClient();
   const { data } = await supabase
-    .from("lessons")
+    .from("english_jo_lessons")
     .select("id, nivel, titulo, pasta, prioridade, status, nota")
     .order("nivel")
     .order("created_at");

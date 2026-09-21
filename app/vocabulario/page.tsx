@@ -5,15 +5,15 @@ import Link from "next/link";
 export default async function VocabularioPage() {
   const supabase = createClient();
   const { data } = await supabase
-    .from("words")
-    .select("id, termo, traducao, exemplo, reviews(proxima_revisao)")
+    .from("english_jo_words")
+    .select("id, termo, traducao, exemplo, english_jo_reviews(proxima_revisao)")
     .order("created_at");
 
   const hoje = new Date().toISOString().slice(0, 10);
 
   const devidas: Carta[] = (data ?? [])
     .filter((w: any) => {
-      const revisao = w.reviews?.[0];
+      const revisao = w.english_jo_reviews?.[0];
       return !revisao || revisao.proxima_revisao <= hoje;
     })
     .map((w: any) => ({ id: w.id, termo: w.termo, traducao: w.traducao, exemplo: w.exemplo }));
