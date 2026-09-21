@@ -29,7 +29,12 @@ Na Vercel, em **Settings → Environment Variables**, adicione as mesmas duas va
 
 ## Login
 
-O login é sem senha: você digita o e-mail e recebe um link de acesso por e-mail (magic link) — tanto você quanto o Jonathan usam o mesmo app, cada um com seu e-mail.
+O login é com e-mail e senha. Como não é um cadastro público, as contas são criadas manualmente por você no painel do Supabase:
+
+1. No Supabase, vá em **Authentication → Users → Add user**
+2. Preencha e-mail e uma senha (defina a senha que a pessoa vai usar)
+3. Marque a opção **Auto Confirm User** (assim não precisa confirmar por e-mail)
+4. Repita para cada pessoa que vai usar o app (você, o Jonathan, etc.)
 
 ## Como funciona a revisão de vocabulário
 
