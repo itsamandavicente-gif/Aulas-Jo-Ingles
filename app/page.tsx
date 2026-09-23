@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import StatusSelect from "./status-select";
+import ProximaMissao from "./proxima-missao";
+import { calcularStreak } from "@/lib/streak";
 
 type Lesson = {
   id: string;
@@ -8,24 +10,43 @@ type Lesson = {
   titulo: string;
   prioridade: string;
   status: string;
+  concluida_em: string | null;
 };
 
 export default async function Dashboard() {
   const supabase = createClient();
-  const { data } = await supabase
-    .from("english_jo_lessons")
-    .select("id, nivel, pasta, titulo, prioridade, status")
-    .order("nivel", { ascending: true })
-    .order("created_at", { ascending: true });
 
-  const lessons: Lesson[] = data ?? [];
+  const [{ data: lessonsData }, { data: wordsData }, { data: reviewsData }] = await Promise.all([
+    supabase
+      .from("english_jo_lessons")
+      .select("id, nivel, pasta, titulo, prioridade, status, concluida_em")
+      .order("nivel", { ascending: true })
+      .order("created_at", { ascending: true }),
+    supabase.from("english_jo_words").select("id, english_jo_reviews(proxima_revisao)"),
+    supabase.from("english_jo_reviews").select("ultima_revisao"),
+  ]);
+
+  const lessons: Lesson[] = lessonsData ?? [];
   const total = lessons.length;
   const concluidas = lessons.filter((l) => l.status === "Concluído").length;
   const andamento = lessons.filter((l) => l.status === "Em andamento").length;
-  const pendentes = total - concluidas - andamento;
   const pct = total ? Math.round((concluidas / total) * 100) : 0;
 
   const niveis = Array.from(new Set(lessons.map((l) => l.nivel)));
+
+  const hoje = new Date().toISOString().slice(0, 10);
+  const palavrasDevidas = (wordsData ?? []).filter((w: any) => {
+    const revisao = w.english_jo_reviews?.[0];
+    return !revisao || revisao.proxima_revisao <= hoje;
+  }).length;
+
+  const proximaLicao = lessons.find((l) => l.status !== "Concluído") ?? null;
+
+  const datasAtividade = [
+    ...lessons.map((l) => l.concluida_em),
+    ...(reviewsData ?? []).map((r: any) => r.ultima_revisao),
+  ];
+  const { dias: streakDias, ativoHoje: streakAtivoHoje } = calcularStreak(datasAtividade);
 
   return (
     <div className="wrap">
@@ -34,6 +55,13 @@ export default async function Dashboard() {
         <h1>Acompanhamento de Aulas</h1>
         <div className="subtitle">Conteúdo liberado por nível, conforme o avanço</div>
       </header>
+
+      <ProximaMissao
+        streakDias={streakDias}
+        streakAtivoHoje={streakAtivoHoje}
+        palavrasDevidas={palavrasDevidas}
+        proximaLicao={proximaLicao}
+      />
 
       <div className="card" style={{ marginBottom: 18 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16, marginBottom: 14 }}>

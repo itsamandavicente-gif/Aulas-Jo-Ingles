@@ -5,7 +5,10 @@ import { revalidatePath } from "next/cache";
 
 export async function atualizarStatusLicao(lessonId: string, status: string) {
   const supabase = createClient();
-  await supabase.from("english_jo_lessons").update({ status }).eq("id", lessonId);
+  await supabase
+    .from("english_jo_lessons")
+    .update({ status, concluida_em: status === "Concluído" ? new Date().toISOString() : null })
+    .eq("id", lessonId);
   revalidatePath("/");
   revalidatePath("/aulas");
 }
